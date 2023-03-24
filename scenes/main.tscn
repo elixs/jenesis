@@ -9,7 +9,7 @@ size = Vector2(640, 64)
 [node name="Main" type="Node2D"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(-36, 187)
+position = Vector2(124, 193)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
@@ -20,4 +20,4 @@ texture = ExtResource("1_fdxlm")
 shape = SubResource("RectangleShape2D_7jhuw")
 
 [node name="Player" parent="." instance=ExtResource("2_aav1h")]
-position = Vector2(140, 114)
+position = Vector2(174, 123)
