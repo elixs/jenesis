@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://biem7uaf4depg"]
+
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_bq08h"]
+[ext_resource type="Texture2D" uid="uid://dcoeij0lsod1d" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Idle.png" id="1_hnfjl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g21ud"]
+radius = 6.0
+height = 34.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_bq08h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3, -23)
+texture = ExtResource("1_hnfjl")
+hframes = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_g21ud")
+
+[node name="Camera2D" type="Camera2D" parent="."]
