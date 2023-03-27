@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bcqc68i56tey6"]
+
+[ext_resource type="FontFile" uid="uid://dn8wdftdjvsev" path="res://assets/BitPotion Full Extended/BitPotionExt.ttf" id="1_h6yu1"]
+
+[resource]
+default_font = ExtResource("1_h6yu1")
+default_font_size = 24
+BigLabel/base_type = &"Label"
+BigLabel/font_sizes/font_size = 48
+MarginContainer/constants/margin_bottom = 16
+MarginContainer/constants/margin_left = 16
+MarginContainer/constants/margin_right = 16
+MarginContainer/constants/margin_top = 16

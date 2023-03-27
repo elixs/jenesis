@@ -30,7 +30,7 @@ func _physics_process(delta):
 	# animation
 	
 	if is_on_floor():
-		if abs(velocity.x) > 10:
+		if abs(velocity.x) > 10 or move_input:
 			playback.travel("run")
 		else:
 			playback.travel("idle")
