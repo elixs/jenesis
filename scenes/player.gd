@@ -13,7 +13,7 @@ var current_jump_time = 0
 var current_airborne_time = 0
 var jumping = false
 
-
+var Enemy = preload("res://scenes/enemy.tscn")
 
 @onready var pivot = $Pivot
 @onready var animation_player = $AnimationPlayer
@@ -50,6 +50,9 @@ func _physics_process(delta):
 	velocity.x = move_toward(velocity.x, move_input * SPEED, ACCELERATION * delta)
 
 	move_and_slide()
+
+	if Input.is_action_just_pressed("spawn"):
+		_spawn()
 	
 	# animation
 	
@@ -66,3 +69,10 @@ func _physics_process(delta):
 	
 	if move_input:
 		pivot.scale.x = sign(move_input)
+
+
+func _spawn():
+	var enemy = Enemy.instantiate()
+	enemy.global_position = get_global_mouse_position()
+	enemy.rotation = (get_global_mouse_position() - global_position).angle() + PI / 2
+	get_parent().add_child(enemy)
