@@ -1,10 +1,19 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -300.0
+const SPEED = 100.0
+const JUMP_VELOCITY = -150.0
 const GRAVITY = 400
 const ACCELERATION = 1000
+
+const MAX_JUMP_TIME = 0.2
+const MAX_AIRBORNE_TIME = 0.1
+
+var current_jump_time = 0
+var current_airborne_time = 0
+var jumping = false
+
+
 
 @onready var pivot = $Pivot
 @onready var animation_player = $AnimationPlayer
@@ -13,13 +22,28 @@ const ACCELERATION = 1000
 
 func _ready():
 	animation_tree.active = true
+#	Engine.time_scale = 0.2
 
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += GRAVITY * delta
+	
+	if is_on_floor():
+		current_airborne_time = 0
 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and current_airborne_time < MAX_AIRBORNE_TIME:
+		jumping = true
+		current_jump_time = 0
+	
+	if jumping and current_jump_time <= MAX_JUMP_TIME:
 		velocity.y = JUMP_VELOCITY
+	
+	current_jump_time += delta
+	current_airborne_time += delta
+	
+	if Input.is_action_just_released("jump"):
+		jumping = false
+	
 
 	var move_input = Input.get_axis("move_left", "move_right")
 	

@@ -8,8 +8,13 @@ size = Vector2(640, 64)
 
 [node name="Main" type="Node2D"]
 
+[node name="Icon" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(179, 109)
+texture = ExtResource("1_fdxlm")
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(124, 193)
+position = Vector2(-120, 181)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
