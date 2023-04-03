@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 const SPEED = 100.0
-const JUMP_VELOCITY = -150.0
+const JUMP_VELOCITY = -200.0
 const GRAVITY = 400
 const ACCELERATION = 1000
 
@@ -34,6 +34,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and current_airborne_time < MAX_AIRBORNE_TIME:
 		jumping = true
 		current_jump_time = 0
+		Game.jumps += 1
 	
 	if jumping and current_jump_time <= MAX_JUMP_TIME:
 		velocity.y = JUMP_VELOCITY
