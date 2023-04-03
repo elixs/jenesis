@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnutjq8qdxsl4"]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scenes/enemy.gd" id="1_avlvf"]
-[ext_resource type="Texture2D" uid="uid://byq8pqiacqrwy" path="res://assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Idle.png" id="1_g0nxj"]
+[ext_resource type="Texture2D" uid="uid://byq8pqiacqrwy" path="res://assets/BitPotion Full Extended/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Idle.png" id="1_g0nxj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g21ud"]
 radius = 6.0
