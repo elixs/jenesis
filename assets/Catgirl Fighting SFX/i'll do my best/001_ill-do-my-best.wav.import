@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d2fc5d3c5du56"
+path="res://.godot/imported/001_ill-do-my-best.wav-60e77dd9ecd72ef23a698d128b847551.sample"
+
+[deps]
+
+source_file="res://assets/Catgirl Fighting SFX/i'll do my best/001_ill-do-my-best.wav"
+dest_files=["res://.godot/imported/001_ill-do-my-best.wav-60e77dd9ecd72ef23a698d128b847551.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

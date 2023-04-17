@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bccfd3xmhj4do"
+path="res://.godot/imported/007_swing.wav-12bf66cc2011834cf29af51c6adb1afa.sample"
+
+[deps]
+
+source_file="res://assets/Catgirl Fighting SFX/swing/007_swing.wav"
+dest_files=["res://.godot/imported/007_swing.wav-12bf66cc2011834cf29af51c6adb1afa.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

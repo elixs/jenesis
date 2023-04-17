@@ -1,3 +1,5 @@
+class_name Enemy
+
 extends CharacterBody2D
 
 
@@ -13,4 +15,5 @@ func _physics_process(delta):
 
 	move_and_slide()
 	
-	print(Game.jumps)
+func take_damage():
+	print("auch")

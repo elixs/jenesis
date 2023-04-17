@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ojuklhki5km"]
+[gd_scene load_steps=7 format=3 uid="uid://ojuklhki5km"]
 
 [ext_resource type="Texture2D" uid="uid://crmq3vf48yn4w" path="res://icon.svg" id="1_fdxlm"]
 [ext_resource type="PackedScene" uid="uid://biem7uaf4depg" path="res://scenes/player.tscn" id="2_aav1h"]
 [ext_resource type="Texture2D" uid="uid://qth8pba0326d" path="res://assets/Mossy Tileset/Mossy - TileSet - small.png" id="2_qny78"]
+[ext_resource type="AudioStream" uid="uid://bi3arknm2seuj" path="res://assets/Vault(mp3)/blademaster.mp3" id="4_lpu85"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_13mwl"]
 texture = ExtResource("2_qny78")
@@ -503,3 +504,9 @@ layer_0/tile_data = PackedInt32Array(196608, 0, 3, 196609, 65536, 3, 196610, 655
 
 [node name="Player" parent="." instance=ExtResource("2_aav1h")]
 position = Vector2(98, 33)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lpu85")
+volume_db = 1.0
+autoplay = true
+bus = &"Music"

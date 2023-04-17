@@ -19,10 +19,14 @@ var Enemy = preload("res://scenes/enemy.tscn")
 @onready var animation_player = $AnimationPlayer
 @onready var animation_tree = $AnimationTree
 @onready var playback = animation_tree.get("parameters/playback")
+@onready var audio_stream_player = $AudioStreamPlayer
+@onready var attack_area_2d = $Pivot/AttackArea2D
+
 
 func _ready():
 	animation_tree.active = true
 #	Engine.time_scale = 0.2
+	attack_area_2d.body_entered.connect(_on_body_entered)
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -35,6 +39,7 @@ func _physics_process(delta):
 		jumping = true
 		current_jump_time = 0
 		Game.jumps += 1
+		audio_stream_player.play()
 	
 	if jumping and current_jump_time <= MAX_JUMP_TIME:
 		velocity.y = JUMP_VELOCITY
@@ -54,6 +59,9 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("spawn"):
 		_spawn()
+		
+	if Input.is_action_just_pressed("attack"):
+		_attack()
 	
 	# animation
 	
@@ -77,3 +85,15 @@ func _spawn():
 	enemy.global_position = get_global_mouse_position()
 	enemy.rotation = (get_global_mouse_position() - global_position).angle() + PI / 2
 	get_parent().add_child(enemy)
+
+
+func _on_body_entered(body: Node):
+	if body.has_method("take_damage"):
+		body.take_damage()
+	if body is CharacterBody2D:
+		var character = body as CharacterBody2D
+		character.velocity = (character.global_position - global_position).normalized() * 500
+
+
+func _attack():
+	playback.call_deferred("travel", "attack")

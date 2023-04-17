@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bx24pqnhhp653"
+path="res://.godot/imported/005_jump.wav-62039b2c38f810fae5f2f6caaa6282a6.sample"
+
+[deps]
+
+source_file="res://assets/Catgirl Fighting SFX/jump/005_jump.wav"
+dest_files=["res://.godot/imported/005_jump.wav-62039b2c38f810fae5f2f6caaa6282a6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
