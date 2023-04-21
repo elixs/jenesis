@@ -16,4 +16,7 @@ func _physics_process(delta):
 	move_and_slide()
 	
 func take_damage():
-	print("auch")
+	var current_modulate = modulate
+	modulate = Color.WHITE
+	await get_tree().create_timer(0.1).timeout
+	modulate = current_modulate

@@ -30,6 +30,10 @@ var Enemy = preload("res://scenes/enemy.tscn")
 @onready var audio_stream_player = $AudioStreamPlayer
 @onready var attack_area_2d = $Pivot/AttackArea2D
 @onready var hud = $CanvasLayer/HUD
+@onready var bullet_spawn = $Pivot/BulletSpawn
+
+
+@export var Bullet: PackedScene 
 
 
 
@@ -73,6 +77,14 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("attack"):
 		_attack()
 	
+	if Input.is_action_just_pressed("fire"):
+		_fire()
+		
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		print(collision.get_collider().name)
+		
+	
 	# animation
 	
 	if is_on_floor():
@@ -108,6 +120,18 @@ func _on_body_entered(body: Node):
 func _attack():
 	playback.call_deferred("travel", "attack")
 
+
+func _fire():
+#	if Game.bullet:
+#		return
+	if !Bullet:
+		return
+	var bullet = Bullet.instantiate()
+	bullet.rotation = bullet_spawn.global_position.direction_to(get_global_mouse_position()).angle()
+	get_parent().add_child(bullet)
+	bullet.global_position = bullet_spawn.global_position
+	
+	
 
 func take_damage():
 	if health <= 0:
