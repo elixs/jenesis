@@ -1,6 +1,12 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bcqc68i56tey6"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://bcqc68i56tey6"]
 
 [ext_resource type="FontFile" uid="uid://dn8wdftdjvsev" path="res://assets/BitPotion Full Extended/BitPotionExt.ttf" id="1_h6yu1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36nbx"]
+bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kduce"]
+bg_color = Color(0.34902, 0.74902, 0.164706, 1)
 
 [resource]
 default_font = ExtResource("1_h6yu1")
@@ -11,3 +17,5 @@ MarginContainer/constants/margin_bottom = 16
 MarginContainer/constants/margin_left = 16
 MarginContainer/constants/margin_right = 16
 MarginContainer/constants/margin_top = 16
+ProgressBar/styles/background = SubResource("StyleBoxFlat_36nbx")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_kduce")

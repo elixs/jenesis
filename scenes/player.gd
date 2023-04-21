@@ -13,6 +13,14 @@ var current_jump_time = 0
 var current_airborne_time = 0
 var jumping = false
 
+const MAX_HEALTH = 100
+var health = 100:
+	set(value):
+		health = value
+		hud.set_health(health)
+	get:
+		return health
+
 var Enemy = preload("res://scenes/enemy.tscn")
 
 @onready var pivot = $Pivot
@@ -21,6 +29,8 @@ var Enemy = preload("res://scenes/enemy.tscn")
 @onready var playback = animation_tree.get("parameters/playback")
 @onready var audio_stream_player = $AudioStreamPlayer
 @onready var attack_area_2d = $Pivot/AttackArea2D
+@onready var hud = $CanvasLayer/HUD
+
 
 
 func _ready():
@@ -97,3 +107,10 @@ func _on_body_entered(body: Node):
 
 func _attack():
 	playback.call_deferred("travel", "attack")
+
+
+func take_damage():
+	if health <= 0:
+		return
+	health = max(health - 25, 0)
+	print(health)
