@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://biem7uaf4depg"]
+[gd_scene load_steps=52 format=3 uid="uid://biem7uaf4depg"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_bq08h"]
 [ext_resource type="Texture2D" uid="uid://dcoeij0lsod1d" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Idle.png" id="1_hnfjl"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://ck738lf6omvqm" path="res://assets/Catgirl Fighting SFX/swing/002_swing.wav" id="8_4akam"]
 [ext_resource type="AudioStream" uid="uid://p77ou1fqy4vy" path="res://assets/Catgirl Fighting SFX/jump/001_jump.wav" id="8_l00r8"]
 [ext_resource type="PackedScene" uid="uid://be44dmw344nmo" path="res://scenes/hud.tscn" id="10_botg2"]
+[ext_resource type="Texture2D" uid="uid://bns82luhbwsei" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_WallSlide.png" id="10_ex6vt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0fmip"]
 size = Vector2(39, 45.5)
@@ -378,6 +379,47 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 }
 
+[sub_resource type="Animation" id="Animation_y3il1"]
+resource_name = "wall_climb"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_ex6vt")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dx0yp"]
 _data = {
 "RESET": SubResource("Animation_hofar"),
@@ -387,7 +429,8 @@ _data = {
 "jump": SubResource("Animation_eemxm"),
 "jump_start": SubResource("Animation_j6t4f"),
 "land": SubResource("Animation_l0y8v"),
-"run": SubResource("Animation_xfogp")
+"run": SubResource("Animation_xfogp"),
+"wall_climb": SubResource("Animation_y3il1")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_72v0t"]
@@ -410,6 +453,9 @@ animation = &"land"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8qsld"]
 animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qta6p"]
+animation = &"wall_climb"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gt8xk"]
 advance_mode = 2
@@ -463,8 +509,10 @@ states/land/node = SubResource("AnimationNodeAnimation_6ck5k")
 states/land/position = Vector2(772.111, -88.4307)
 states/run/node = SubResource("AnimationNodeAnimation_8qsld")
 states/run/position = Vector2(596.889, 87.144)
+states/wall_climb/node = SubResource("AnimationNodeAnimation_qta6p")
+states/wall_climb/position = Vector2(411.272, 266.222)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_gt8xk"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_kk0bk"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_lhtcw"), "idle", "jump_start", SubResource("AnimationNodeStateMachineTransition_0cc86"), "run", "jump_start", SubResource("AnimationNodeStateMachineTransition_sps1v"), "jump_start", "jump", SubResource("AnimationNodeStateMachineTransition_clsqu"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_u0utb"), "fall", "land", SubResource("AnimationNodeStateMachineTransition_wn4on"), "land", "run", SubResource("AnimationNodeStateMachineTransition_2ody0"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_lf4nq"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_e2e6m"), "run", "fall", SubResource("AnimationNodeStateMachineTransition_bn7ac"), "run", "attack", SubResource("AnimationNodeStateMachineTransition_bk7c2"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_sxj6o"), "attack", "run", SubResource("AnimationNodeStateMachineTransition_dj37u"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_xaiwj")]
-graph_offset = Vector2(192, 70)
+graph_offset = Vector2(105, 123)
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_brisl"]
 
@@ -491,7 +539,14 @@ shape = SubResource("RectangleShape2D_0fmip")
 disabled = true
 
 [node name="BulletSpawn" type="Marker2D" parent="Pivot"]
-position = Vector2(23, -15)
+position = Vector2(2, -15)
+
+[node name="RayCast2D" type="RayCast2D" parent="Pivot"]
+target_position = Vector2(10, 0)
+
+[node name="WallCheck" type="RayCast2D" parent="Pivot"]
+position = Vector2(0, -16)
+target_position = Vector2(-12, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g21ud")

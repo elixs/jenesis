@@ -21,6 +21,8 @@ func _exit_tree():
 
 
 func _on_body_entered(body: Node):
+	if body is Player:
+		return
 	if body.has_method("take_damage"):
 		body.take_damage()
 	queue_free()

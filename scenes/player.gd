@@ -1,13 +1,22 @@
+class_name Player
 extends CharacterBody2D
 
+enum State {
+	MOVE,
+	WALL_CLIMB,
+	SWIM,
+}
 
 const SPEED = 100.0
-const JUMP_VELOCITY = -200.0
+const JUMP_SPEED = -200.0
 const GRAVITY = 400
 const ACCELERATION = 1000
 
 const MAX_JUMP_TIME = 0.2
 const MAX_AIRBORNE_TIME = 0.1
+
+const WALL_SPEED = 50.0
+
 
 var current_jump_time = 0
 var current_airborne_time = 0
@@ -31,10 +40,15 @@ var Enemy = preload("res://scenes/enemy.tscn")
 @onready var attack_area_2d = $Pivot/AttackArea2D
 @onready var hud = $CanvasLayer/HUD
 @onready var bullet_spawn = $Pivot/BulletSpawn
+@onready var ray_cast_2d = $Pivot/RayCast2D
+@onready var collision_shape_2d = $CollisionShape2D
+@onready var wall_check = $Pivot/WallCheck
 
 
-@export var Bullet: PackedScene 
+@export var Bullet: PackedScene
 
+
+var _state = State.MOVE
 
 
 func _ready():
@@ -43,6 +57,17 @@ func _ready():
 	attack_area_2d.body_entered.connect(_on_body_entered)
 
 func _physics_process(delta):
+	match _state:
+		State.MOVE:
+			_move(delta)
+		State.WALL_CLIMB:
+			_wall_climb(delta)
+		State.SWIM:
+			_swim(delta)
+#	print(velocity)
+	
+	
+func _move(delta):
 	if not is_on_floor():
 		velocity.y += GRAVITY * delta
 	
@@ -56,7 +81,7 @@ func _physics_process(delta):
 		audio_stream_player.play()
 	
 	if jumping and current_jump_time <= MAX_JUMP_TIME:
-		velocity.y = JUMP_VELOCITY
+		velocity.y = JUMP_SPEED
 	
 	current_jump_time += delta
 	current_airborne_time += delta
@@ -82,8 +107,14 @@ func _physics_process(delta):
 		
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
-		print(collision.get_collider().name)
+#		print(collision.get_collider().name)
 		
+		
+	# state
+	
+	if ray_cast_2d.is_colliding() and not is_on_floor():
+		set_state(State.WALL_CLIMB)
+		return;
 	
 	# animation
 	
@@ -100,6 +131,23 @@ func _physics_process(delta):
 	
 	if move_input:
 		pivot.scale.x = sign(move_input)
+
+func _wall_climb(delta):
+	var move_input = Input.get_axis("move_up", "move_down")
+	if not wall_check.is_colliding():
+		move_input = max(move_input, 0)
+	velocity.y = move_input * WALL_SPEED
+	
+	move_and_slide()
+	
+	# state
+	
+	if Input.is_action_just_pressed("jump"):
+		set_state(State.MOVE)
+
+
+func _swim(delta):
+	pass
 
 
 func _spawn():
@@ -138,3 +186,36 @@ func take_damage():
 		return
 	health = max(health - 25, 0)
 	print(health)
+
+
+func set_state(value):
+	var current_state = _state
+	var new_state = value
+	
+	match current_state:
+		State.MOVE:
+			pass
+		State.WALL_CLIMB:
+			if new_state == State.MOVE:
+				var direction = Vector2(pivot.scale.x, -1).normalized()
+				jumping = true
+#				velocity = direction * (JUMP_SPEED + WALL_SPEED)
+		State.SWIM:
+			pass
+	
+	match new_state:
+		State.MOVE:
+			current_jump_time = 0
+		State.WALL_CLIMB:
+			playback.travel("wall_climb")
+			velocity = Vector2.ZERO
+			var normal = ray_cast_2d.get_collision_normal()
+			var pos = ray_cast_2d.get_collision_point()
+			var capsule = collision_shape_2d.shape as CapsuleShape2D
+			global_position.x = (pos + normal * capsule.radius).x
+			pivot.scale.x *= -1
+		State.SWIM:
+			pass
+	
+	_state = new_state
+
