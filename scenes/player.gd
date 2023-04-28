@@ -17,10 +17,12 @@ const MAX_AIRBORNE_TIME = 0.1
 
 const WALL_SPEED = 50.0
 
-
 var current_jump_time = 0
 var current_airborne_time = 0
 var jumping = false
+
+var pickable: Pickable = null
+var grabbed = false
 
 const MAX_HEALTH = 100
 var health = 100:
@@ -43,9 +45,14 @@ var Enemy = preload("res://scenes/enemy.tscn")
 @onready var ray_cast_2d = $Pivot/RayCast2D
 @onready var collision_shape_2d = $CollisionShape2D
 @onready var wall_check = $Pivot/WallCheck
+@onready var pickable_marker = $Pivot/PickableMarker
+@onready var pickable_area = $PickableArea
 
 
 @export var Bullet: PackedScene
+@export var Explosion: PackedScene
+
+
 
 
 var _state = State.MOVE
@@ -55,6 +62,9 @@ func _ready():
 	animation_tree.active = true
 #	Engine.time_scale = 0.2
 	attack_area_2d.body_entered.connect(_on_body_entered)
+	hud.show()
+	pickable_area.body_entered.connect(_on_pickable_enter)
+	pickable_area.body_exited.connect(_on_pickable_exit)
 
 func _physics_process(delta):
 	match _state:
@@ -65,6 +75,13 @@ func _physics_process(delta):
 		State.SWIM:
 			_swim(delta)
 #	print(velocity)
+
+	if Input.is_action_just_pressed("interact") and pickable:
+		grabbed = !grabbed
+		pickable.freeze = grabbed
+		
+	if pickable and grabbed:
+		pickable.global_position = lerp(pickable.global_position, pickable_marker.global_position, 0.1)
 	
 	
 func _move(delta):
@@ -160,6 +177,8 @@ func _spawn():
 func _on_body_entered(body: Node):
 	if body.has_method("take_damage"):
 		body.take_damage()
+		_spawn_explosion(body.global_position, body)
+		
 	if body is CharacterBody2D:
 		var character = body as CharacterBody2D
 		character.velocity = (character.global_position - global_position).normalized() * 500
@@ -219,3 +238,17 @@ func set_state(value):
 	
 	_state = new_state
 
+func _spawn_explosion(pos, node):
+	var explosion = Explosion.instantiate()
+	node.add_child(explosion)
+	explosion.global_position = pos
+
+
+func _on_pickable_enter(body: Node):
+	if body is Pickable:
+		pickable = body
+
+
+func _on_pickable_exit(body: Node):
+	if body == pickable and not grabbed:
+		pickable = null

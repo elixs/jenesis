@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ojuklhki5km"]
+[gd_scene load_steps=10 format=3 uid="uid://ojuklhki5km"]
 
 [ext_resource type="Texture2D" uid="uid://crmq3vf48yn4w" path="res://icon.svg" id="1_fdxlm"]
 [ext_resource type="PackedScene" uid="uid://biem7uaf4depg" path="res://scenes/player.tscn" id="2_aav1h"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://bi3arknm2seuj" path="res://assets/Vault(mp3)/blademaster.mp3" id="4_lpu85"]
 [ext_resource type="PackedScene" uid="uid://ctyxih2x0ayvo" path="res://scenes/damage_area.tscn" id="5_exfq4"]
 [ext_resource type="PackedScene" uid="uid://c6e81h8t08n4" path="res://scenes/box.tscn" id="6_kxaxr"]
+[ext_resource type="PackedScene" uid="uid://dwynqfnbblgxx" path="res://scenes/pickable_box.tscn" id="7_imj6l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_13mwl"]
 texture = ExtResource("2_qny78")
@@ -507,8 +508,11 @@ layer_0/tile_data = PackedInt32Array(196608, 65536, 3, 196609, 65536, 3, 196610,
 [node name="DamageArea" parent="." instance=ExtResource("5_exfq4")]
 position = Vector2(-25, 169)
 
+[node name="PickableBox" parent="." instance=ExtResource("7_imj6l")]
+position = Vector2(70, 172)
+
 [node name="Player" parent="." instance=ExtResource("2_aav1h")]
-position = Vector2(73, 95)
+position = Vector2(28, 164)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_lpu85")

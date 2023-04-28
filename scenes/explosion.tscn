@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://dgoag5ditggxa"]
+
+[ext_resource type="Texture2D" uid="uid://ca05omgsmoaw6" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Run.png" id="1_g7coh"]
+[ext_resource type="Script" path="res://scenes/explosion.gd" id="2_glsn0"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_b5qc6"]
+particles_animation = true
+particles_anim_h_frames = 10
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Gradient" id="Gradient_w4ema"]
+offsets = PackedFloat32Array(0.265334, 1)
+colors = PackedColorArray(0.488546, 9.8668e-07, 2.88785e-07, 1, 1, 0.443137, 0.0705882, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tqenf"]
+gradient = SubResource("Gradient_w4ema")
+
+[sub_resource type="Curve" id="Curve_dwbnx"]
+max_value = 1.01
+_data = [Vector2(0, 1.01), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2wec0"]
+curve = SubResource("Curve_dwbnx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_21kb2"]
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 100.0
+damping_max = 100.0
+angle_max = 360.0
+scale_curve = SubResource("CurveTexture_2wec0")
+color_ramp = SubResource("GradientTexture1D_tqenf")
+anim_speed_min = 10.0
+anim_speed_max = 10.0
+
+[node name="Explosion" type="GPUParticles2D"]
+z_index = -1
+material = SubResource("CanvasItemMaterial_b5qc6")
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_21kb2")
+texture = ExtResource("1_g7coh")
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("2_glsn0")

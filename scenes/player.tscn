@@ -1,8 +1,9 @@
-[gd_scene load_steps=52 format=3 uid="uid://biem7uaf4depg"]
+[gd_scene load_steps=54 format=3 uid="uid://biem7uaf4depg"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_bq08h"]
 [ext_resource type="Texture2D" uid="uid://dcoeij0lsod1d" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Idle.png" id="1_hnfjl"]
 [ext_resource type="PackedScene" uid="uid://cgcvj8kidve3f" path="res://scenes/bullet.tscn" id="2_h37mm"]
+[ext_resource type="PackedScene" uid="uid://dgoag5ditggxa" path="res://scenes/explosion.tscn" id="3_231xy"]
 [ext_resource type="Texture2D" uid="uid://ca05omgsmoaw6" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Run.png" id="3_gqq7p"]
 [ext_resource type="Texture2D" uid="uid://ct6of8d0d13oo" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Jump.png" id="4_0k7iv"]
 [ext_resource type="Texture2D" uid="uid://cot1oeu456mrr" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_JumpFallInbetween.png" id="5_wxmc0"]
@@ -516,11 +517,15 @@ graph_offset = Vector2(105, 123)
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_brisl"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_2g1ab"]
+radius = 32.0
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_bq08h")
 Bullet = ExtResource("2_h37mm")
+Explosion = ExtResource("3_231xy")
 
 [node name="Pivot" type="Node2D" parent="."]
 
@@ -534,6 +539,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/AttackArea2D"]
+visible = false
 position = Vector2(43.5, -4.75)
 shape = SubResource("RectangleShape2D_0fmip")
 disabled = true
@@ -542,13 +548,19 @@ disabled = true
 position = Vector2(2, -15)
 
 [node name="RayCast2D" type="RayCast2D" parent="Pivot"]
+visible = false
 target_position = Vector2(10, 0)
 
 [node name="WallCheck" type="RayCast2D" parent="Pivot"]
+visible = false
 position = Vector2(0, -16)
 target_position = Vector2(-12, 0)
 
+[node name="PickableMarker" type="Marker2D" parent="Pivot"]
+position = Vector2(0, -40)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CapsuleShape2D_g21ud")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -569,6 +581,7 @@ parameters/playback = SubResource("AnimationNodeStateMachinePlayback_brisl")
 visible = false
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("10_botg2")]
+visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_l00r8")
@@ -577,3 +590,10 @@ bus = &"SFX"
 [node name="AttackPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_4akam")
 bus = &"SFX"
+
+[node name="PickableArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickableArea"]
+shape = SubResource("CircleShape2D_2g1ab")
