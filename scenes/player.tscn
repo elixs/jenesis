@@ -575,10 +575,18 @@ tree_root = SubResource("AnimationNodeStateMachine_8pbdw")
 anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_brisl")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="PauseLayer" type="CanvasLayer" parent="."]
+layer = 128
 
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("7_pwvj6")]
+[node name="PauseMenu" parent="PauseLayer" instance=ExtResource("7_pwvj6")]
 visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 352.0
+offset_bottom = 211.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("10_botg2")]
 visible = false

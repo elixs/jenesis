@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ojuklhki5km"]
+[gd_scene load_steps=11 format=3 uid="uid://ojuklhki5km"]
 
 [ext_resource type="Texture2D" uid="uid://crmq3vf48yn4w" path="res://icon.svg" id="1_fdxlm"]
 [ext_resource type="PackedScene" uid="uid://biem7uaf4depg" path="res://scenes/player.tscn" id="2_aav1h"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ctyxih2x0ayvo" path="res://scenes/damage_area.tscn" id="5_exfq4"]
 [ext_resource type="PackedScene" uid="uid://c6e81h8t08n4" path="res://scenes/box.tscn" id="6_kxaxr"]
 [ext_resource type="PackedScene" uid="uid://dwynqfnbblgxx" path="res://scenes/pickable_box.tscn" id="7_imj6l"]
+[ext_resource type="PackedScene" uid="uid://b1qs6ho17wxo0" path="res://scenes/cafe.tscn" id="8_uvhjt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_13mwl"]
 texture = ExtResource("2_qny78")
@@ -503,7 +504,7 @@ texture = ExtResource("1_fdxlm")
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_3e6ef")
 format = 2
-layer_0/tile_data = PackedInt32Array(196608, 65536, 3, 196609, 65536, 3, 196610, 65536, 3, 196611, 65536, 3, 196612, 131072, 3, 196614, 0, 3, 196620, 0, 2, 196621, 131072, 2, 196629, 0, 2, 21, 0, 0, 65557, 0, 1, 131093, 0, 1, 22, 131072, 0, 65558, 131072, 1, 196630, 131072, 2, 131094, 131072, 1, 131084, 0, 1, 65548, 0, 0, 65549, 131072, 0, 131085, 131072, 1, 196615, 65536, 3, 196616, 65536, 3, 196617, 65536, 3, 196618, 131072, 3, 196626, 65536, 3, 196627, 131072, 3, 196625, 65536, 3, 196624, 65536, 3, 196623, 0, 3, 131077, 196608, 3, 262143, 65536, 3, 262142, 65536, 3, 262141, 65536, 3, 262140, 65536, 3, 262139, 0, 3)
+layer_0/tile_data = PackedInt32Array(196608, 65536, 3, 196609, 65536, 3, 196610, 65536, 3, 196611, 65536, 3, 196612, 131072, 3, 196614, 0, 3, 196620, 0, 2, 196621, 131072, 2, 196629, 0, 2, 21, 0, 0, 65557, 0, 1, 131093, 0, 1, 22, 131072, 0, 65558, 131072, 1, 196630, 131072, 2, 131094, 131072, 1, 131084, 0, 1, 65548, 0, 0, 65549, 131072, 0, 131085, 131072, 1, 196615, 65536, 3, 196616, 65536, 3, 196617, 65536, 3, 196618, 131072, 3, 196626, 65536, 3, 196627, 131072, 3, 196625, 65536, 3, 196624, 65536, 3, 196623, 0, 3, 131077, 196608, 3, 262143, 65536, 3, 262142, 65536, 3, 262141, 65536, 3, 262140, 65536, 3, 262139, 65536, 3, 262138, 65536, 3, 262137, 65536, 3, 262136, 65536, 3, 262135, 65536, 3, 262134, 65536, 3, 262133, 65536, 3, 262132, 65536, 3, 262131, 65536, 3, 262130, 65536, 3, 262129, 0, 3)
 
 [node name="DamageArea" parent="." instance=ExtResource("5_exfq4")]
 position = Vector2(-25, 169)
@@ -512,7 +513,7 @@ position = Vector2(-25, 169)
 position = Vector2(70, 172)
 
 [node name="Player" parent="." instance=ExtResource("2_aav1h")]
-position = Vector2(28, 164)
+position = Vector2(-443, 145)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_lpu85")
@@ -523,3 +524,6 @@ bus = &"Music"
 [node name="Box" parent="." instance=ExtResource("6_kxaxr")]
 position = Vector2(254, 100)
 scale = Vector2(0.5, 2)
+
+[node name="Cafe" parent="." instance=ExtResource("8_uvhjt")]
+position = Vector2(-126, 155)
