@@ -24,6 +24,17 @@ var jumping = false
 var pickable: Pickable = null
 var grabbed = false
 
+var display_name = "meh":
+	set(value):
+		display_name = value
+		print(display_name)
+
+
+var kills = 0:
+	set(value):
+		kills = value
+		hud.set_kills(kills)
+
 const MAX_HEALTH = 100
 var health = 100:
 	set(value):
@@ -53,8 +64,6 @@ var Enemy = preload("res://scenes/enemy.tscn")
 @export var Explosion: PackedScene
 
 
-
-
 var _state = State.MOVE
 
 
@@ -65,6 +74,8 @@ func _ready():
 	hud.show()
 	pickable_area.body_entered.connect(_on_pickable_enter)
 	pickable_area.body_exited.connect(_on_pickable_exit)
+#	load_data()
+	print(display_name)
 
 func _physics_process(delta):
 	match _state:
@@ -82,6 +93,17 @@ func _physics_process(delta):
 		
 	if pickable and grabbed:
 		pickable.global_position = lerp(pickable.global_position, pickable_marker.global_position, 0.1)
+
+
+func _input(event):
+	if event.is_action_pressed("save"):
+#		save_data()
+		save_config()
+	if event.is_action_pressed("load"):
+#		load_data()
+		load_config()
+	if event.is_action_pressed("random"):
+		display_name = str(randi() % 101)
 	
 	
 func _move(delta):
@@ -178,6 +200,7 @@ func _on_body_entered(body: Node):
 	if body.has_method("take_damage"):
 		body.take_damage()
 		_spawn_explosion(body.global_position, body)
+		kills += 1
 		
 	if body is CharacterBody2D:
 		var character = body as CharacterBody2D
@@ -252,3 +275,44 @@ func _on_pickable_enter(body: Node):
 func _on_pickable_exit(body: Node):
 	if body == pickable and not grabbed:
 		pickable = null
+
+
+func save_data():
+	var data = {
+		"kills": kills
+	}
+	
+#	var file = FileAccess.open("user://data.json", FileAccess.WRITE)
+#	var file = FileAccess.open_encrypted_with_pass("user://data.save", FileAccess.WRITE, "meh")
+	var file = FileAccess.open("user://data.binary", FileAccess.WRITE)
+
+	if not file:
+		return
+#	file.store_string(JSON.stringify(data))
+	file.store_var(kills)
+	file.store_var(display_name)
+
+
+func load_data():
+#	var file = FileAccess.open("user://data.json", FileAccess.READ)
+#	var file = FileAccess.open_encrypted_with_pass("user://data.save", FileAccess.READ, "meh")
+	var file = FileAccess.open("user://data.binary", FileAccess.READ)
+	if not file:
+		return
+#	var data = JSON.parse_string(file.get_as_text())
+#	kills = data.kills
+	kills = file.get_var()
+	display_name = file.get_var()
+
+
+func save_config():
+	var config_file = ConfigFile.new()
+	config_file.set_value("settings", "language", Game.language)
+	config_file.save("user://config.cfg")
+
+
+func load_config():
+	var config_file = ConfigFile.new()
+	config_file.load("user://config.cfg")
+	var language = config_file.get_value("settings", "language")
+	print(language)
