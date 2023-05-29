@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://ck738lf6omvqm" path="res://assets/Catgirl Fighting SFX/swing/002_swing.wav" id="8_4akam"]
 [ext_resource type="AudioStream" uid="uid://p77ou1fqy4vy" path="res://assets/Catgirl Fighting SFX/jump/001_jump.wav" id="8_l00r8"]
 [ext_resource type="PackedScene" uid="uid://be44dmw344nmo" path="res://scenes/hud.tscn" id="10_botg2"]
-[ext_resource type="Texture2D" uid="uid://bns82luhbwsei" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_WallSlide.png" id="10_ex6vt"]
+[ext_resource type="Texture2D" uid="uid://d0wau0oeoyem0" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_WallClimbNoMovement.png" id="11_yafl2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0fmip"]
 size = Vector2(39, 45.5)
@@ -382,7 +382,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_y3il1"]
 resource_name = "wall_climb"
-length = 0.6
+length = 0.1
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -394,7 +394,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("10_ex6vt")]
+"values": [ExtResource("11_yafl2")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -406,7 +406,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [3]
+"values": [7]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -415,10 +415,10 @@ tracks/2/path = NodePath("Pivot/Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1, 2]
+"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dx0yp"]
@@ -535,6 +535,7 @@ texture = ExtResource("1_hnfjl")
 hframes = 10
 
 [node name="AttackArea2D" type="Area2D" parent="Pivot"]
+visible = false
 collision_layer = 0
 collision_mask = 4
 
@@ -547,20 +548,14 @@ disabled = true
 [node name="BulletSpawn" type="Marker2D" parent="Pivot"]
 position = Vector2(2, -15)
 
-[node name="RayCast2D" type="RayCast2D" parent="Pivot"]
-visible = false
-target_position = Vector2(10, 0)
-
 [node name="WallCheck" type="RayCast2D" parent="Pivot"]
-visible = false
 position = Vector2(0, -16)
-target_position = Vector2(-12, 0)
+target_position = Vector2(7, 0)
 
 [node name="PickableMarker" type="Marker2D" parent="Pivot"]
 position = Vector2(0, -40)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CapsuleShape2D_g21ud")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -605,3 +600,14 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickableArea"]
 shape = SubResource("CircleShape2D_2g1ab")
+
+[node name="Debug" type="Node2D" parent="."]
+z_index = 10
+
+[node name="StateLabel" type="Label" parent="Debug"]
+offset_left = -102.0
+offset_top = -51.0
+offset_right = 102.0
+offset_bottom = -26.0
+text = "state"
+horizontal_alignment = 1
