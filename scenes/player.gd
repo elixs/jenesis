@@ -58,6 +58,7 @@ var Enemy = preload("res://scenes/enemy.tscn")
 @onready var pickable_marker = $Pivot/PickableMarker
 @onready var pickable_area = $PickableArea
 @onready var state_label = $Debug/StateLabel
+@onready var camera_with_shake = $CameraWithShake
 
 
 @export var Bullet: PackedScene
@@ -217,6 +218,7 @@ func _on_body_entered(body: Node):
 		body.take_damage()
 		_spawn_explosion(body.global_position, body)
 		kills += 1
+		camera_with_shake.shake()
 		
 	if body is CharacterBody2D:
 		var character = body as CharacterBody2D
