@@ -62,6 +62,7 @@ var Enemy = preload("res://scenes/enemy.tscn")
 
 @export var Bullet: PackedScene
 @export var Explosion: PackedScene
+@export var weapon: WeaponData
 
 
 var _state = State.MOVE
@@ -105,6 +106,13 @@ func _input(event):
 		load_config()
 	if event.is_action_pressed("random"):
 		display_name = str(randi() % 101)
+	if event.is_action_pressed("test"):
+		var weapon = WeaponData.new()
+		weapon.name = "F"
+		weapon.attack = 16
+		weapon.level = 0
+		ResourceSaver.save(weapon, "res://resources/f.tres")
+	
 	
 	
 func _move(delta):

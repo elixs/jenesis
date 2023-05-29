@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3 uid="uid://duokdwh2qnmrv"]
+
+[ext_resource type="Script" path="res://resources/weapon.gd" id="1_xakd5"]
+
+[resource]
+script = ExtResource("1_xakd5")
+name = "Excalibur"
+attack = 99
+level = 9

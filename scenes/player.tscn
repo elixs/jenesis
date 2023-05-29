@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://biem7uaf4depg"]
+[gd_scene load_steps=55 format=3 uid="uid://biem7uaf4depg"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_bq08h"]
 [ext_resource type="Texture2D" uid="uid://dcoeij0lsod1d" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Idle.png" id="1_hnfjl"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dgoag5ditggxa" path="res://scenes/explosion.tscn" id="3_231xy"]
 [ext_resource type="Texture2D" uid="uid://ca05omgsmoaw6" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Run.png" id="3_gqq7p"]
 [ext_resource type="Texture2D" uid="uid://ct6of8d0d13oo" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Jump.png" id="4_0k7iv"]
+[ext_resource type="Resource" uid="uid://dnxdlps0xwky3" path="res://resources/bow.tres" id="4_ei3md"]
 [ext_resource type="Texture2D" uid="uid://cot1oeu456mrr" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_JumpFallInbetween.png" id="5_wxmc0"]
 [ext_resource type="Texture2D" uid="uid://d0jvvpl6h6ofp" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Fall.png" id="6_eyxd8"]
 [ext_resource type="Texture2D" uid="uid://bsjw3hddo124u" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Attack.png" id="7_k28kw"]
@@ -526,6 +527,7 @@ collision_mask = 3
 script = ExtResource("1_bq08h")
 Bullet = ExtResource("2_h37mm")
 Explosion = ExtResource("3_231xy")
+weapon = ExtResource("4_ei3md")
 
 [node name="Pivot" type="Node2D" parent="."]
 
