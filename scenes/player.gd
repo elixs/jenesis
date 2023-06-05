@@ -189,7 +189,6 @@ func _move(delta):
 
 func _wall_climb(delta):
 	var move_input = Input.get_axis("move_up", "move_down")
-	print(move_input)
 	if not wall_check.is_colliding():
 		move_input = max(move_input, 0)
 	velocity.y = move_input * WALL_SPEED
@@ -245,7 +244,6 @@ func take_damage():
 	if health <= 0:
 		return
 	health = max(health - 25, 0)
-	print(health)
 
 
 func set_state(value):
