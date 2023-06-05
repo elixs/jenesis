@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/camera_with_shake.gd" id="1_14roq"]
 
-[node name="CameraWithShake" type="Node2D"]
+[node name="CameraWithShake" type="Camera2D"]
+process_callback = 0
+position_smoothing_enabled = true
 script = ExtResource("1_14roq")
-
-[node name="Camera2D" type="Camera2D" parent="."]
