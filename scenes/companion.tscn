@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://dygg3ki5svgis"]
+
+[ext_resource type="Script" path="res://scenes/companion.gd" id="1_2t5qi"]
+[ext_resource type="Texture2D" uid="uid://bynyfoe2e2k8k" path="res://assets/32x32_Steampunk_Cogs.png" id="1_ifxth"]
+
+[sub_resource type="Animation" id="Animation_xs0cr"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_a2l4m"]
+resource_name = "idle"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fp1ne"]
+_data = {
+"RESET": SubResource("Animation_xs0cr"),
+"idle": SubResource("Animation_a2l4m")
+}
+
+[node name="Companion" type="Node2D"]
+script = ExtResource("1_2t5qi")
+
+[node name="BigCog" type="Sprite2D" parent="."]
+texture = ExtResource("1_ifxth")
+region_enabled = true
+region_rect = Rect2(36, 100, 24, 24)
+
+[node name="SmallCogRight" type="Sprite2D" parent="."]
+position = Vector2(12, 5)
+texture = ExtResource("1_ifxth")
+region_enabled = true
+region_rect = Rect2(103, 6, 10, 10)
+
+[node name="SmallCogBottom" type="Sprite2D" parent="."]
+position = Vector2(5, 11)
+texture = ExtResource("1_ifxth")
+region_enabled = true
+region_rect = Rect2(103, 6, 10, 10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fp1ne")
+}

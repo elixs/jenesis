@@ -1,0 +1,162 @@
+[gd_scene load_steps=17 format=3 uid="uid://dye7b332ecb14"]
+
+[ext_resource type="Texture2D" uid="uid://crmq3vf48yn4w" path="res://icon.svg" id="1_c86ob"]
+[ext_resource type="Script" path="res://scenes/navigation/main.gd" id="1_uk5nk"]
+[ext_resource type="PackedScene" uid="uid://cwjsvgc2kp2s8" path="res://scenes/navigation/player.tscn" id="2_18xpw"]
+[ext_resource type="Texture2D" uid="uid://qth8pba0326d" path="res://assets/Mossy Tileset/Mossy - TileSet - small.png" id="2_ny853"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_mpxyk"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5pnn0"]
+texture = ExtResource("2_ny853")
+16:0/0 = 0
+16:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_mpxyk")
+
+[sub_resource type="TileSet" id="TileSet_kc8so"]
+navigation_layer_0/layers = 1
+sources/0 = SubResource("TileSetAtlasSource_5pnn0")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_aoia0"]
+vertices = PackedVector2Array(175.138, 66.6312, 177.309, 104.582, 85.1371, 100.423, 81.1826, 69.5298, 21.5142, 16.3444, 184.375, 9.31915, 183.239, 37.3675, 79.1963, 37.5758, 22.974, 193.384, 82.5882, 147.523, 178.085, 194.601, 179.48, 142.533)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 4, 7, 3), PackedInt32Array(8, 3, 2, 9), PackedInt32Array(10, 8, 9, 11)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(184.375, 9.31915, 21.5142, 16.3444, 22.974, 193.384, 178.085, 194.601, 179.48, 142.533, 82.5882, 147.523, 85.1371, 100.423, 177.309, 104.582, 175.138, 66.6312, 81.1826, 69.5298, 79.1963, 37.5758, 183.239, 37.3675)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_vexkx"]
+vertices = PackedVector2Array(255, 122, 258, 207, 155, 203, 154, 144)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(154, 144, 155, 203, 258, 207, 255, 122)])
+
+[sub_resource type="Animation" id="Animation_wtxdl"]
+resource_name = "new_animation"
+length = 5.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NavigationRegion2D2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(2.07053, 0.535887),
+"update": 0,
+"values": [Vector2(19, -5), Vector2(19, -148)]
+}
+
+[sub_resource type="Animation" id="Animation_8yokp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NavigationRegion2D2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(19, -5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hgtte"]
+_data = {
+"RESET": SubResource("Animation_8yokp"),
+"new_animation": SubResource("Animation_wtxdl")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y0m65"]
+size = Vector2(25.6, 25.6)
+
+[sub_resource type="Animation" id="Animation_egpi6"]
+resource_name = "new_animation"
+length = 10.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterBody2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6.7, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(68, 187), Vector2(80, 88), Vector2(75, 25)]
+}
+
+[sub_resource type="Animation" id="Animation_e343l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterBody2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(68, 187)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ph81d"]
+_data = {
+"RESET": SubResource("Animation_e343l"),
+"new_animation": SubResource("Animation_egpi6")
+}
+
+[node name="Navigation" type="Node2D"]
+position = Vector2(6, 1)
+script = ExtResource("1_uk5nk")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_kc8so")
+format = 2
+layer_0/tile_data = PackedInt32Array(327697, 1048576, 0, 393233, 1048576, 0, 458769, 1048576, 0, 524305, 1048576, 0, 589841, 1048576, 0, 655377, 1048576, 0, 720913, 1048576, 0, 327698, 1048576, 0, 393234, 1048576, 0, 458770, 1048576, 0, 524306, 1048576, 0, 589842, 1048576, 0, 655378, 1048576, 0, 720914, 1048576, 0, 786450, 1048576, 0, 786449, 1048576, 0, 262161, 1048576, 0, 196625, 1048576, 0, 131089, 1048576, 0, 65553, 1048576, 0, 65554, 1048576, 0, 131090, 1048576, 0, 196626, 1048576, 0, 262162, 1048576, 0, 65555, 1048576, 0, 19, 1048576, 0, 65556, 1048576, 0, 65557, 1048576, 0, 65558, 1048576, 0, 131094, 1048576, 0, 131093, 1048576, 0, 196629, 1048576, 0, 262165, 1048576, 0, 196628, 1048576, 0, 131092, 1048576, 0, 131091, 1048576, 0, 196630, 1048576, 0, 262166, 1048576, 0, 327702, 1048576, 0, 393238, 1048576, 0, 458774, 1048576, 0, 524310, 1048576, 0, 589846, 1048576, 0, 655382, 1048576, 0, 720918, 1048576, 0, 720917, 1048576, 0, 786452, 1048576, 0, 786451, 1048576, 0, 786453, 1048576, 0, 786454, 1048576, 0, 786455, 1048576, 0, 720919, 1048576, 0, 589845, 1048576, 0, 524309, 1048576, 0, 458773, 1048576, 0, 393237, 1048576, 0, 327701, 1048576, 0, 655381, 1048576, 0, 720916, 1048576, 0, 655380, 1048576, 0, 655379, 1048576, 0, 589843, 1048576, 0, 524307, 1048576, 0, 524308, 1048576, 0, 458772, 1048576, 0, 393236, 1048576, 0, 327700, 1048576, 0, 262164, 1048576, 0, 262163, 1048576, 0, 196627, 1048576, 0, 327699, 1048576, 0, 393235, 1048576, 0, 458771, 1048576, 0, 720915, 1048576, 0, 589844, 1048576, 0)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+rotation = 0.0308403
+navigation_polygon = SubResource("NavigationPolygon_aoia0")
+
+[node name="Target" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(303, 129)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_c86ob")
+
+[node name="Player" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_18xpw")]
+position = Vector2(130, 47)
+target = NodePath("../Target")
+
+[node name="NavigationRegion2D2" type="NavigationRegion2D" parent="."]
+position = Vector2(19, -5)
+navigation_polygon = SubResource("NavigationPolygon_vexkx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "new_animation"
+libraries = {
+"": SubResource("AnimationLibrary_hgtte")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(68, 187)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_c86ob")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_y0m65")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="CharacterBody2D"]
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+autoplay = "new_animation"
+libraries = {
+"": SubResource("AnimationLibrary_ph81d")
+}
