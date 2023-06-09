@@ -33,6 +33,13 @@ func change_parent(parent: Node2D) -> void:
 func _physics_process(delta: float) -> void:
 	if target:
 		global_position = target.global_position
+	
+	if _zoom_enabled:
+		if Input.is_action_pressed("zoom_up_key"):
+			zoom += Vector2.ONE * 0.01
+		if Input.is_action_pressed("zoom_down_key"):
+			zoom -= Vector2.ONE * 0.01
+	
 
 
 func _input(event: InputEvent) -> void:
@@ -41,6 +48,7 @@ func _input(event: InputEvent) -> void:
 			zoom += Vector2.ONE * 0.1
 		if event.is_action_pressed("zoom_down"):
 			zoom -= Vector2.ONE * 0.1
+
 
 func enable_zoom(enable: bool) -> void:
 	_zoom_enabled = enable
