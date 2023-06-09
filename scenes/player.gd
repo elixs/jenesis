@@ -2,9 +2,10 @@ class_name Player
 extends CharacterBody2D
 
 enum State {
+	IDLE,
 	MOVE,
 	WALL_CLIMB,
-	SWIM,
+	SWIM
 }
 
 const SPEED = 100.0
@@ -58,18 +59,20 @@ var Enemy = preload("res://scenes/enemy.tscn")
 @onready var pickable_marker = $Pivot/PickableMarker
 @onready var pickable_area = $PickableArea
 @onready var state_label = $Debug/StateLabel
-@onready var camera_with_shake = $CameraWithShake
-
+@onready var companion_marker: Marker2D = $Pivot/CompanionMarker
 
 @export var Bullet: PackedScene
 @export var Explosion: PackedScene
 @export var weapon: WeaponData
 
 
+signal companion_toggled(bool)
+
 var _state = State.MOVE
 
 
 func _ready():
+	Game.player = self
 	animation_tree.active = true
 #	Engine.time_scale = 0.2
 	attack_area_2d.body_entered.connect(_on_body_entered)
@@ -82,6 +85,8 @@ func _ready():
 
 func _physics_process(delta):
 	match _state:
+		State.IDLE:
+			_idle(delta)
 		State.MOVE:
 			_move(delta)
 		State.WALL_CLIMB:
@@ -114,7 +119,21 @@ func _input(event):
 		weapon.level = 0
 		ResourceSaver.save(weapon, "res://resources/f.tres")
 	
+func _idle(delta):
 	
+	if not is_on_floor():
+		velocity.y += GRAVITY * delta
+	
+	velocity.x = move_toward(velocity.x, 0, ACCELERATION * delta)
+	
+	move_and_slide()
+	
+	_update_move_animation(0)
+	
+	if Input.is_action_just_pressed("companion"):
+		companion_toggled.emit(false)
+		set_state(State.MOVE)
+		
 	
 func _move(delta):
 	
@@ -171,18 +190,14 @@ func _move(delta):
 		set_state(State.WALL_CLIMB)
 		return;
 	
+	if is_on_floor() and Input.is_action_just_pressed("companion"):
+		set_state(State.IDLE)
+		companion_toggled.emit(true)
+		
+	
 	# animation
 	
-	if is_on_floor():
-		if abs(velocity.x) > 10 or move_input:
-			playback.travel("run")
-		else:
-			playback.travel("idle")
-	else:
-		if velocity.y < 0:
-			playback.travel("jump")
-		else:
-			playback.travel("fall")
+	_update_move_animation(move_input)
 	
 	if move_input:
 		pivot.scale.x = sign(move_input)
@@ -201,6 +216,18 @@ func _wall_climb(delta):
 		set_state(State.MOVE)
 
 
+func _update_move_animation(move_input: float):
+	if is_on_floor():
+		if abs(velocity.x) > 10 or move_input:
+			playback.travel("run")
+		else:
+			playback.travel("idle")
+	else:
+		if velocity.y < 0:
+			playback.travel("jump")
+		else:
+			playback.travel("fall")
+
 func _swim(delta):
 	pass
 
@@ -217,7 +244,7 @@ func _on_body_entered(body: Node):
 		body.take_damage()
 		_spawn_explosion(body.global_position, body)
 		kills += 1
-		camera_with_shake.shake()
+		Game.shake_camera()
 		
 	if body is CharacterBody2D:
 		var character = body as CharacterBody2D
@@ -345,3 +372,6 @@ func _update_debug():
 				state_label.text = "wall_climb"
 			State.SWIM:
 				state_label.text = "swim"
+
+func get_companion_marker() -> Node2D:
+	return companion_marker

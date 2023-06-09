@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://x545roj1x1ju" path="res://assets/space_background_pack/layers/parallax-space-stars.png" id="5_qlf1a"]
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
+scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0, 0)

@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3 uid="uid://bvdvjpvbm7hkw"]
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://resources/weapon.gd" id="1_dqkmt"]
+[ext_resource type="Script" path="res://resources/weapon.gd" id="1_l2huv"]
 
 [resource]
-script = ExtResource("1_dqkmt")
+script = ExtResource("1_l2huv")
 name = "F"
 attack = 16
 level = 0

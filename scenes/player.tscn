@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://biem7uaf4depg"]
+[gd_scene load_steps=55 format=3 uid="uid://biem7uaf4depg"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_bq08h"]
 [ext_resource type="Texture2D" uid="uid://dcoeij0lsod1d" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Idle.png" id="1_hnfjl"]
@@ -15,7 +15,6 @@
 [ext_resource type="AudioStream" uid="uid://p77ou1fqy4vy" path="res://assets/Catgirl Fighting SFX/jump/001_jump.wav" id="8_l00r8"]
 [ext_resource type="PackedScene" uid="uid://be44dmw344nmo" path="res://scenes/hud.tscn" id="10_botg2"]
 [ext_resource type="Texture2D" uid="uid://d0wau0oeoyem0" path="res://assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_WallClimbNoMovement.png" id="11_yafl2"]
-[ext_resource type="PackedScene" uid="uid://bj5g6jd8rvgmr" path="res://scenes/camera_with_shake.tscn" id="16_b32kr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0fmip"]
 size = Vector2(39, 45.5)
@@ -558,6 +557,9 @@ target_position = Vector2(7, 0)
 [node name="PickableMarker" type="Marker2D" parent="Pivot"]
 position = Vector2(0, -40)
 
+[node name="CompanionMarker" type="Marker2D" parent="Pivot"]
+position = Vector2(-15, -30)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g21ud")
 
@@ -612,5 +614,3 @@ offset_right = 102.0
 offset_bottom = -26.0
 text = "state"
 horizontal_alignment = 1
-
-[node name="CameraWithShake" parent="." instance=ExtResource("16_b32kr")]
