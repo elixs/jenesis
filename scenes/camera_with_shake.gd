@@ -5,7 +5,7 @@ extends Camera2D
 @export var points: int = 5
 @export var duration: float = 0.2
 
-var target: Node2D
+@export var target: Node2D
 
 
 var _zoom_enabled := false

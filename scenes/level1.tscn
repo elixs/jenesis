@@ -1,11 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://otfsmxocn1x8"]
+[gd_scene load_steps=12 format=3 uid="uid://otfsmxocn1x8"]
 
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_1hhcj"]
 [ext_resource type="Texture2D" uid="uid://crmq3vf48yn4w" path="res://icon.svg" id="1_6xabj"]
 [ext_resource type="PackedScene" uid="uid://biem7uaf4depg" path="res://scenes/player.tscn" id="4_v3l8l"]
 [ext_resource type="AudioStream" uid="uid://bi3arknm2seuj" path="res://assets/Vault(mp3)/blademaster.mp3" id="5_v5tv2"]
 [ext_resource type="PackedScene" uid="uid://cwbt5e0n7qtu2" path="res://scenes/goal.tscn" id="6_bs5k0"]
+[ext_resource type="PackedScene" uid="uid://bj5g6jd8rvgmr" path="res://scenes/camera_with_shake.tscn" id="7_3wief"]
 [ext_resource type="Texture2D" uid="uid://qth8pba0326d" path="res://assets/Mossy Tileset/Mossy - TileSet - small.png" id="7_7tjn3"]
 [ext_resource type="PackedScene" uid="uid://dptlb422clgnw" path="res://scenes/parallax_background.tscn" id="8_l86y0"]
+[ext_resource type="PackedScene" uid="uid://dygg3ki5svgis" path="res://scenes/companion.tscn" id="8_q237t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_13mwl"]
 texture = ExtResource("7_7tjn3")
@@ -523,7 +526,8 @@ terrain_set_0/terrain_0/name = "Grass"
 terrain_set_0/terrain_0/color = Color(0.772549, 0.705882, 0.439216, 1)
 sources/0 = SubResource("TileSetAtlasSource_13mwl")
 
-[node name="Main" type="Node2D"]
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_1hhcj")
 
 [node name="Icon" type="Sprite2D" parent="."]
 visible = false
@@ -548,3 +552,10 @@ layer_0/tile_data = PackedInt32Array(196609, 0, 3, 196610, 65536, 3, 196611, 655
 
 [node name="Goal" parent="." instance=ExtResource("6_bs5k0")]
 position = Vector2(702, 194)
+
+[node name="CameraWithShake" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_3wief")]
+position = Vector2(170, 161)
+target = NodePath("../Player")
+
+[node name="Companion" parent="." instance=ExtResource("8_q237t")]
+position = Vector2(225, 116)

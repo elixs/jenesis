@@ -5,22 +5,16 @@ extends Node2D
 
 func _ready() -> void:
 	player.companion_toggled.connect(_toggle_companion)
-	camera.target = player
-	
 
 
 func _toggle_companion(toggle: bool) -> void:
 	if toggle:
 		camera.target = companion
 		camera.enable_zoom(true)
-		camera.position_smoothing_speed = 100
 		camera.set_smoothing_speed(10)
-
 		companion.move()
 	else:
 		camera.target = player
 		camera.enable_zoom(false)
 		camera.set_smoothing_speed(5)
-		
-		
 		companion.follow()

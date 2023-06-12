@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://buh5isfuh7frx"]
+[gd_scene load_steps=2 format=3 uid="uid://buh5isfuh7frx"]
 
 [ext_resource type="Script" path="res://ui/main_menu.gd" id="1_emf6v"]
-[ext_resource type="PackedScene" uid="uid://ojuklhki5km" path="res://scenes/main.tscn" id="2_o8r4h"]
 
 [node name="MainMenu" type="MarginContainer"]
 anchors_preset = 15
@@ -10,7 +9,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_emf6v")
-main_scene = ExtResource("2_o8r4h")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2

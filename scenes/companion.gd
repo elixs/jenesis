@@ -24,8 +24,6 @@ var state: State = State.FOLLOW:
 			if tween:
 				tween.set_speed_scale(1)
 				velocity = Vector2.ZERO
-				
-		
 		state = next_state
 
 
